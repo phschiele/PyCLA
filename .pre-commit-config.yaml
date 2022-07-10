@@ -14,8 +14,8 @@ repos:
       - id: isort
         args: [-m 3,-w 160, -tc]
 
-  # detecting and removing unused imports with unimport
-  - repo: https://github.com/hakancelik96/unimport
+  # A linter, formatter for finding and removing unused import statements.
+  - repo: https://github.com/hakancelikdev/unimport
     rev: 0.2.7
     hooks:
       - id: unimport
