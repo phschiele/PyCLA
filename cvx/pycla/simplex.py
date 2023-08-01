@@ -1,16 +1,11 @@
 from __future__ import annotations
 
 import copy as cp
-from typing import List
-from typing import Tuple
-from typing import Union
+from typing import List, Tuple, Union
 
 import numpy as np
 
-from cvx.pycla.constants import Direction
-from cvx.pycla.constants import SimplexPhase
-from cvx.pycla.constants import SimplexReturn
-from cvx.pycla.constants import VariableState
+from cvx.pycla.constants import Direction, SimplexPhase, SimplexReturn, VariableState
 
 
 class Simplex:

@@ -5,8 +5,7 @@ import pytest
 from sklearn.datasets import make_spd_matrix
 
 from cvx.pycla import PyCLA
-from cvx.pycla.helpers import Frontier
-from cvx.pycla.helpers import make_symmetric
+from cvx.pycla.helpers import Frontier, make_symmetric
 from cvx.pycla.plotting import plot_efficient_frontiers
 from cvx.pycla.validation import validate_frontier
 

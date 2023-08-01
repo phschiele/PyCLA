@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
-from typing import Tuple
+from typing import Optional, Tuple
 
 import numpy as np
 from scipy.optimize import linprog

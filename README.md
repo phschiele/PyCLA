@@ -5,20 +5,24 @@ A Python Package for Portfolio Optimization using the Critical Line Algorithm
 ![Tests](http://github.com/phschiele/PyCLA/workflows/Tests/badge.svg?event=push)
 
 ## Getting started
+
 To use PyCLA, clone the repo and install the required dependencies.
 
 ```bash
 git clone https://github.com/phschiele/PyCLA
 ```
+
 Dependency installation using poetry:
+
 ```bash
 poetry install
 ```
+
 Dependency installation using pip:
+
 ```bash
 pip install -r requirements.txt
 ```
-
 
 ## Using PyCLA - An Example
 

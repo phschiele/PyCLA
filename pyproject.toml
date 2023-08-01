@@ -33,3 +33,11 @@ pre-commit = "*"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = ["E", "F", "I"]
+line-length = 160
+target-version = "py310"
+exclude = [
+    "*__init__.py"
+]
