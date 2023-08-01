@@ -1,4 +1,5 @@
 # PyCLA
+
 A Python Package for Portfolio Optimization using the Critical Line Algorithm
 
 ![Tests](http://github.com/phschiele/PyCLA/workflows/Tests/badge.svg?event=push)
@@ -52,4 +53,3 @@ pycla = PyCLA(mu, C, A, b, A_in, b_in, lb, ub)
 pycla.trace_frontier()
 
 ```
-

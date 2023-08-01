@@ -73,7 +73,6 @@ def transform_ineq_to_eq(
 
 
 def find_max_E(mu: np.array, A: np.array, b: np.array, lb: np.array, ub: np.array, tol: float, method: str) -> Tuple[np.array, set, set, Optional[np.array]]:
-
     n = len(mu)
     m = A.shape[0]
 

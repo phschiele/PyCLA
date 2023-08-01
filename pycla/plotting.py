@@ -5,7 +5,6 @@ from pycla.helpers import Frontier
 
 
 def plot_efficient_frontiers(frontiers: List[Frontier]) -> None:
-
     plt.figure()
 
     for frontier in frontiers:

@@ -67,7 +67,6 @@ def test_sharpe(resource_dir, lp_method: str, update_tests: bool) -> None:
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
 def test_many_constraints(resource_dir, lp_method: str, update_tests: bool) -> None:
-
     mu = np.loadtxt(resource_dir / "CLA_test_many_constraints_mu.csv", delimiter=",")
     C = np.loadtxt(resource_dir / "CLA_test_many_constraints_C.csv", delimiter=",")
     n_sec = len(mu)
@@ -131,7 +130,6 @@ def test_markowitz_todd(resource_dir, lp_method: str, update_tests: bool) -> Non
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
 def test_random(resource_dir, lp_method: str, update_tests: bool) -> None:
-
     for n_sec in range(10, 101, 10):
         np.random.seed(n_sec)
         mu = np.random.random(n_sec)

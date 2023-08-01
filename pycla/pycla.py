@@ -24,7 +24,6 @@ class PyCLABase(ABC):
         MAX_CP: int,
         verbose: bool,
     ) -> None:
-
         self.mu = mu
         self.A = A
         self.b = b
@@ -109,7 +108,6 @@ class PyCLA(PyCLABase):
         validate_inputs: bool = True,
         verbose: bool = False,
     ):
-
         if validate_inputs:
             C = validate_and_fix_asymmetry(C, tol)
             self.validate_inputs(mu, C, A, b, A_in, b_in, lb, ub, tol)
@@ -213,10 +211,10 @@ class PyCLA(PyCLABase):
             assert old_lambda_E < np.inf
             a2 = 1 / dE_dLambda
             a1 = 2 * (old_lambda_E - a2 * self.E)
-            a0 = self.V - a1 * self.E - a2 * self.E ** 2
+            a0 = self.V - a1 * self.E - a2 * self.E**2
 
             self.E += (self.LambdaE - old_lambda_E) * dE_dLambda
-            self.V = a0 + a1 * self.E + a2 * self.E ** 2
+            self.V = a0 + a1 * self.E + a2 * self.E**2
 
         self.output.append(
             {
@@ -316,7 +314,6 @@ class SemiPyCLA(PyCLABase):
         lp_method: str = "TWO_STAGE_SIMPLEX",
         verbose: bool = True,
     ):
-
         self.historic_returns = historic_returns
         self.reference_return = reference_return
         self.t = historic_returns.shape[0]

@@ -72,7 +72,6 @@ class Simplex:
             raise Exception(f"Unknown return code: {return_code}")
 
     def simplex_phase(self, phase: SimplexPhase) -> SimplexReturn:
-
         while True:
             self.price = -self.Ai.T @ self.z[self._I]
 
@@ -161,7 +160,6 @@ class Simplex:
         self.State[j_out] = VariableState.UP if out_direction == Direction.HIGHER else VariableState.LOW
 
     def update_ai(self, i_out: int, i_in: int, in_direction: Direction) -> None:
-
         ind_minus_i_out = list(range(self.m))
         ind_minus_i_out.remove(i_out)
         temp = self.adj_rate[ind_minus_i_out] / self.adj_rate[i_out]
