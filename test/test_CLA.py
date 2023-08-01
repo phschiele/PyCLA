@@ -8,7 +8,7 @@ from sklearn.datasets import make_spd_matrix
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
-def test_sharpe(path_test_data: str, lp_method: str, update_tests: bool) -> None:
+def test_sharpe(resource_dir, lp_method: str, update_tests: bool) -> None:
     # Example taken from http://web.stanford.edu/~wfsharpe/mia/opt/mia_opt3.htm
 
     n_sec = 3
@@ -32,7 +32,7 @@ def test_sharpe(path_test_data: str, lp_method: str, update_tests: bool) -> None
     validate_frontier(pycla)
 
     weights = np.vstack([i["X"] for i in pycla.output])
-    file_name = f"{path_test_data}CLA_test_sharpe.csv"
+    file_name = resource_dir / "CLA_test_sharpe.csv"
     if update_tests:
         np.savetxt(file_name, weights, delimiter=",")
     expected_weights = np.loadtxt(file_name, delimiter=",")
@@ -66,20 +66,20 @@ def test_sharpe(path_test_data: str, lp_method: str, update_tests: bool) -> None
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
-def test_many_constraints(path_test_data: str, lp_method: str, update_tests: bool) -> None:
+def test_many_constraints(resource_dir, lp_method: str, update_tests: bool) -> None:
 
-    mu = np.loadtxt(f"{path_test_data}CLA_test_many_constraints_mu.csv", delimiter=",")
-    C = np.loadtxt(f"{path_test_data}CLA_test_many_constraints_C.csv", delimiter=",")
+    mu = np.loadtxt(resource_dir / "CLA_test_many_constraints_mu.csv", delimiter=",")
+    C = np.loadtxt(resource_dir / "CLA_test_many_constraints_C.csv", delimiter=",")
     n_sec = len(mu)
 
     lb = np.zeros(n_sec)
-    ub = np.loadtxt(f"{path_test_data}CLA_test_many_constraints_ub.csv", delimiter=",")
+    ub = np.loadtxt(resource_dir / "CLA_test_many_constraints_ub.csv", delimiter=",")
 
     A = np.ones([1, n_sec])
     b = np.array([1.0])
 
-    A_in = np.loadtxt(f"{path_test_data}CLA_test_many_constraints_A_in.csv", delimiter=",")
-    b_in = np.loadtxt(f"{path_test_data}CLA_test_many_constraints_b_in.csv", delimiter=",")
+    A_in = np.loadtxt(resource_dir / "CLA_test_many_constraints_A_in.csv", delimiter=",")
+    b_in = np.loadtxt(resource_dir / "CLA_test_many_constraints_b_in.csv", delimiter=",")
 
     if lp_method == "SCIPY":
         m = 12
@@ -93,7 +93,7 @@ def test_many_constraints(path_test_data: str, lp_method: str, update_tests: boo
     pycla.trace_frontier()
     validate_frontier(pycla)
     weights = np.vstack([i["X"] for i in pycla.output])
-    file_name = f"{path_test_data}CLA_test_many_constraints_{lp_method}.csv"
+    file_name = resource_dir / f"CLA_test_many_constraints_{lp_method}.csv"
     if update_tests:
         np.savetxt(file_name, weights, delimiter=",")
     expected_weights = np.loadtxt(file_name, delimiter=",")
@@ -102,11 +102,11 @@ def test_many_constraints(path_test_data: str, lp_method: str, update_tests: boo
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
-def test_markowitz_todd(path_test_data: str, lp_method: str, update_tests: bool) -> None:
+def test_markowitz_todd(resource_dir, lp_method: str, update_tests: bool) -> None:
     # Example taken from Mean-Variance Analysis in Portfolio Choice and Capital Markets (Markowitz and Todd 2000)
 
     mu = np.array([1.175, 1.19, 0.396, 1.12, 0.346, 0.679, 0.089, 0.73, 0.481, 1.08])
-    C = np.loadtxt(f"{path_test_data}CLA_test_markowitz_todd_C.csv", delimiter=",")
+    C = np.loadtxt(resource_dir / "CLA_test_markowitz_todd_C.csv", delimiter=",")
 
     lb = np.array([0.0999, 0, 0, 0, 0.0999, 0, 0, 0, 0, 0])
     ub = np.array([0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3])
@@ -122,7 +122,7 @@ def test_markowitz_todd(path_test_data: str, lp_method: str, update_tests: bool)
     validate_frontier(pycla)
 
     weights = np.vstack([i["X"] for i in pycla.output])
-    file_name = f"{path_test_data}CLA_test_markowitz_todd.csv"
+    file_name = resource_dir / "CLA_test_markowitz_todd.csv"
     if update_tests:
         np.savetxt(file_name, weights, delimiter=",")
     expected_weights = np.loadtxt(file_name, delimiter=",")
@@ -130,7 +130,7 @@ def test_markowitz_todd(path_test_data: str, lp_method: str, update_tests: bool)
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
-def test_random(path_test_data: str, lp_method: str, update_tests: bool) -> None:
+def test_random(resource_dir, lp_method: str, update_tests: bool) -> None:
 
     for n_sec in range(10, 101, 10):
         np.random.seed(n_sec)
@@ -154,20 +154,20 @@ def test_random(path_test_data: str, lp_method: str, update_tests: bool) -> None
         validate_frontier(pycla)
 
         weights = np.vstack([i["X"] for i in pycla.output])
-        file_name = f"{path_test_data}CLA_test_random_{n_sec}.csv"
+        file_name = resource_dir / "CLA_test_random_{n_sec}.csv"
         if update_tests:
             np.savetxt(file_name, weights, delimiter=",")
-        expected_weights = np.loadtxt(f"{path_test_data}CLA_test_random_{n_sec}.csv", delimiter=",")
+        expected_weights = np.loadtxt(resource_dir / f"CLA_test_random_{n_sec}.csv", delimiter=",")
         assert np.allclose(weights, expected_weights)
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
-def test_markowitz_et_al(path_test_data: str, lp_method: str, update_tests: bool) -> None:
+def test_markowitz_et_al(resource_dir, lp_method: str, update_tests: bool) -> None:
     # Example taken from Avoiding the Downside: A Practical Review of the Critical Line Algorithm for
     # Mean-Semivariance Portfolio Optimization (Markowitz et. al 2019)
     # https://www.hudsonbaycapital.com/documents/FG/hudsonbay/research/599440_paper.pdf
 
-    historic_returns = np.loadtxt(f"{path_test_data}CLA_test_markowitz_et_al_data.csv", delimiter=",")
+    historic_returns = np.loadtxt(resource_dir / "CLA_test_markowitz_et_al_data.csv", delimiter=",")
     mu = np.mean(historic_returns, axis=0)
     C = np.cov(historic_returns.T)
 
@@ -185,7 +185,7 @@ def test_markowitz_et_al(path_test_data: str, lp_method: str, update_tests: bool
     validate_frontier(pycla)
 
     weights = np.vstack([i["X"] for i in pycla.output])
-    file_name = f"{path_test_data}CLA_test_markowitz_et_al.csv"
+    file_name = resource_dir / "CLA_test_markowitz_et_al.csv"
     if update_tests:
         np.savetxt(file_name, weights, delimiter=",")
     expected_weights = np.loadtxt(file_name, delimiter=",")
