@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 from typing import Union
 
 import cvxpy as cvx
-
 import numpy as np
-from cvx.pycla.pycla import PyCLA, SemiPyCLA
+
+from cvx.pycla.pycla import PyCLA
+from cvx.pycla.pycla import SemiPyCLA
 
 
 def validate_frontier(pycla: PyCLA) -> None:

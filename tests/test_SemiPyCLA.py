@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import numpy as np
 import pytest as pytest
+
 from cvx.pycla import SemiPyCLA
 from cvx.pycla.validation import validate_semivariance_frontier
 

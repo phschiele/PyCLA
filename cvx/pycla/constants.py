@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class Direction:
     LOWER = "lower"
     HIGHER = "higher"

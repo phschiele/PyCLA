@@ -1,9 +1,18 @@
-from abc import ABC, abstractmethod
-from typing import List, Optional
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+from typing import List
+from typing import Optional
 
 import numpy as np
-from cvx.pycla.constants import Direction, VariableState
-from cvx.pycla.helpers import find_max_E, is_psd, transform_ineq_to_eq, validate_and_fix_asymmetry
+
+from cvx.pycla.constants import Direction
+from cvx.pycla.constants import VariableState
+from cvx.pycla.helpers import find_max_E
+from cvx.pycla.helpers import is_psd
+from cvx.pycla.helpers import transform_ineq_to_eq
+from cvx.pycla.helpers import validate_and_fix_asymmetry
 
 
 class PyCLABase(ABC):
