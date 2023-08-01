@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import copy as cp
-from typing import List, Tuple, Union
 
 import numpy as np
 
@@ -45,7 +44,7 @@ class Simplex:
         self.Ai = cp.deepcopy(B)
         self.nIABV = self.m
 
-    def solve(self) -> Tuple[np.array, np.array, set, set, np.array]:
+    def solve(self) -> tuple[np.array, np.array, set, set, np.array]:
         return_code = self.simplex_phase(SimplexPhase.ONE)
 
         if return_code == SimplexReturn.OPTIMAL:
@@ -137,17 +136,17 @@ class Simplex:
                     return SimplexReturn.OPTIMAL
 
     @property
-    def _I(self) -> List[int]:
+    def _I(self) -> list[int]:
         return sorted(self.in_vars)
 
     @property
-    def _O(self) -> List[int]:
+    def _O(self) -> list[int]:
         return sorted(self.out_vars)
 
-    def is_up(self, j: Union[int, List[int]]) -> Union[bool, np.array]:
+    def is_up(self, j: int | list[int]) -> bool | np.array:
         return self.State[j] == VariableState.UP
 
-    def is_low(self, j: Union[int, List[int]]) -> Union[bool, np.array]:
+    def is_low(self, j: int | list[int]) -> bool | np.array:
         return self.State[j] == VariableState.LOW
 
     def go_in(self, j_in: int) -> None:

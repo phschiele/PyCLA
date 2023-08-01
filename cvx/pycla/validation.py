@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Union
-
 import cvxpy as cvx
 import numpy as np
 
@@ -18,7 +16,7 @@ def validate_semivariance_frontier(semipycla: SemiPyCLA) -> None:
     validate_min_semideviation(semipycla)
 
 
-def validate_max_return(pycla: Union[PyCLA, SemiPyCLA]) -> None:
+def validate_max_return(pycla: PyCLA | SemiPyCLA) -> None:
     mu = pycla.mu
     ub = pycla.ub
     ub[ub == np.inf] = 1e30

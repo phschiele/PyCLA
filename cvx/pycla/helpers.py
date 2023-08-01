@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 import numpy as np
 from scipy.optimize import linprog
@@ -39,14 +38,14 @@ def is_psd(A: np.array, tol: float = 1e-8) -> bool:
 
 def transform_ineq_to_eq(
     mu: np.array,
-    C: Optional[np.array],
+    C: np.array | None,
     A: np.array,
     b: np.array,
     A_in: np.array,
     b_in: np.array,
     lb: np.array,
     ub: np.array,
-) -> Tuple[np.array, Optional[np.array], np.array, np.array, np.array, np.array]:
+) -> tuple[np.array, np.array | None, np.array, np.array, np.array, np.array]:
     if A_in is None:
         return mu, C, A, b, lb, ub
     else:
@@ -75,7 +74,7 @@ def transform_ineq_to_eq(
         return mu_adj, C_adj, A_adj, b_adj, lb_adj, ub_adj
 
 
-def find_max_E(mu: np.array, A: np.array, b: np.array, lb: np.array, ub: np.array, tol: float, method: str) -> Tuple[np.array, set, set, Optional[np.array]]:
+def find_max_E(mu: np.array, A: np.array, b: np.array, lb: np.array, ub: np.array, tol: float, method: str) -> tuple[np.array, set, set, np.array | None]:
     n = len(mu)
     m = A.shape[0]
 

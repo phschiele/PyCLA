@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 import numpy as np
 
@@ -44,7 +43,7 @@ class PyCLABase(ABC):
 
         self.MAX_CP = MAX_CP
         self.LambdaE = np.inf
-        self.output: List[dict] = []
+        self.output: list[dict] = []
         self.verbose = verbose
         self.traced_frontier = False
 
@@ -60,15 +59,15 @@ class PyCLABase(ABC):
         self.State[j_out] = VariableState.UP if out_direction == Direction.HIGHER else VariableState.LOW
 
     @property
-    def _I(self) -> List[int]:
+    def _I(self) -> list[int]:
         return sorted(self.in_vars)
 
     @property
-    def _O(self) -> List[int]:
+    def _O(self) -> list[int]:
         return sorted(self.out_vars)
 
     @property
-    def _in_sec(self) -> List[int]:
+    def _in_sec(self) -> list[int]:
         return [i for i in self._I if i < self.n]
 
     def get_initial_state(self) -> np.array:
@@ -277,8 +276,8 @@ class PyCLA(PyCLABase):
         C: np.array,
         A: np.array,
         b: np.array,
-        A_in: Optional[np.array],
-        b_in: Optional[np.array],
+        A_in: np.array | None,
+        b_in: np.array | None,
         lb: np.array,
         ub: np.array,
         tol: float,
@@ -422,21 +421,21 @@ class SemiPyCLA(PyCLABase):
             raise StopIteration
 
     @staticmethod
-    def zero_rows(x: np.array, j: List[int]) -> np.array:
+    def zero_rows(x: np.array, j: list[int]) -> np.array:
         y = x.copy()
         for k in j:
             y[k] = 0
         return y
 
     @staticmethod
-    def zero_cols(x: np.array, j: List[int]) -> np.array:
+    def zero_cols(x: np.array, j: list[int]) -> np.array:
         y = x.copy()
         for k in j:
             y[:, k] = 0
         return y
 
     @staticmethod
-    def bar(x: np.array, j: List[int]) -> np.array:
+    def bar(x: np.array, j: list[int]) -> np.array:
         y = x.copy()
         for k in j:
             y[k] = 0
