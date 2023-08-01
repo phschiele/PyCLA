@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional, Tuple
 
 import numpy as np
-from pycla.simplex import Simplex
+from cvx.pycla.simplex import Simplex
 from scipy.optimize import linprog
 
 

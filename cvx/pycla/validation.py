@@ -2,7 +2,7 @@ from typing import Union
 
 import cvxpy as cvx
 import numpy as np
-from pycla.pycla import PyCLA, SemiPyCLA
+from cvx.pycla.pycla import PyCLA, SemiPyCLA
 
 
 def validate_frontier(pycla: PyCLA) -> None:

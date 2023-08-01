@@ -2,7 +2,7 @@ import copy as cp
 from typing import List, Tuple, Union
 
 import numpy as np
-from pycla.constants import Direction, SimplexPhase, SimplexReturn, VariableState
+from cvx.pycla.constants import Direction, SimplexPhase, SimplexReturn, VariableState
 
 
 class Simplex:

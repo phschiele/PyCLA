@@ -3,6 +3,8 @@ name = "pycla"
 version = "0.0.0"
 description = ""
 authors = ["phschiele <phschiele@gmail.com>"]
+packages = [{include = "cvx"}]
+
 
 [tool.poetry.dependencies]
 python = ">=3.8.0,<3.12"

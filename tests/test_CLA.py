@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
-from pycla import PyCLA
-from pycla.helpers import Frontier, make_symmetric
-from pycla.plotting import plot_efficient_frontiers
-from pycla.validation import validate_frontier
+from cvx.pycla import PyCLA
+from cvx.pycla.helpers import Frontier, make_symmetric
+from cvx.pycla.plotting import plot_efficient_frontiers
+from cvx.pycla.validation import validate_frontier
 from sklearn.datasets import make_spd_matrix
 
 

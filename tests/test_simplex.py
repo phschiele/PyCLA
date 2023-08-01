@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from pycla.simplex import Simplex
+from cvx.pycla.simplex import Simplex
 
 
 def test_lp1() -> None:

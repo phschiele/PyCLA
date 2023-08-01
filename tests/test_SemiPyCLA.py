@@ -1,7 +1,7 @@
 import numpy as np
 import pytest as pytest
-from pycla import SemiPyCLA
-from pycla.validation import validate_semivariance_frontier
+from cvx.pycla import SemiPyCLA
+from cvx.pycla.validation import validate_semivariance_frontier
 
 
 @pytest.mark.parametrize("lp_method", ["SCIPY", "TWO_STAGE_SIMPLEX"])
