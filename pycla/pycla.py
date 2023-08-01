@@ -49,13 +49,13 @@ class PyCLABase(ABC):
     def go_in(self, j_in: int) -> None:
         self.out_vars.remove(j_in)
         self.in_vars.add(j_in)
-        self.State[j_in] = VariableState.IN.value
+        self.State[j_in] = VariableState.IN
 
     def go_out(self, j_out: int, out_direction: Direction) -> None:
         assert j_out < self.n
         self.in_vars.remove(j_out)
         self.out_vars.add(j_out)
-        self.State[j_out] = VariableState.UP.value if out_direction == Direction.HIGHER else VariableState.LOW.value
+        self.State[j_out] = VariableState.UP if out_direction == Direction.HIGHER else VariableState.LOW
 
     @property
     def _I(self) -> List[int]:
@@ -71,9 +71,9 @@ class PyCLABase(ABC):
 
     def get_initial_state(self) -> np.array:
         state = np.zeros(self.n)
-        state[self._in_sec] = VariableState.IN.value
+        state[self._in_sec] = VariableState.IN
         up_diff = np.abs(self.X - self.ub)
-        state[self._O] = np.where(up_diff[self._O] < self.tol, VariableState.UP.value, VariableState.LOW.value)
+        state[self._O] = np.where(up_diff[self._O] < self.tol, VariableState.UP, VariableState.LOW)
         return state
 
     def trace_frontier(self) -> None:
@@ -175,8 +175,8 @@ class PyCLA(PyCLABase):
         gamma[out_vars] = MMat_o @ self._alpha
         delta[out_vars] = MMat_o @ self._beta - self.mu[out_vars]
 
-        delta[np.where(np.logical_and(self.State == VariableState.UP.value, delta > 0))] = 0
-        delta[np.where(np.logical_and(self.State == VariableState.LOW.value, delta < 0))] = 0
+        delta[np.where(np.logical_and(self.State == VariableState.UP, delta > 0))] = 0
+        delta[np.where(np.logical_and(self.State == VariableState.LOW, delta < 0))] = 0
         idx = np.where(np.abs(delta) > self.tol)
         lambda_out_goes_in[idx] = -gamma[idx] / delta[idx]
 
@@ -346,8 +346,8 @@ class SemiPyCLA(PyCLABase):
         Abar = self.zero_cols(self.A, self._O)
         Mbar = np.block([[Sbar, Abar.T], [Abar, np.zeros((self.m, self.m))]])
         k = np.zeros(self.n)
-        k[self.State == VariableState.UP.value] = self.ub[self.State == VariableState.UP.value]
-        k[self.State == VariableState.LOW.value] = self.lb[self.State == VariableState.LOW.value]
+        k[self.State == VariableState.UP] = self.ub[self.State == VariableState.UP]
+        k[self.State == VariableState.LOW] = self.lb[self.State == VariableState.LOW]
         rhsa = np.zeros(self.m + self.n)
         rhsa[-self.m :] = self.b - self.A @ k
         rhsb = np.zeros(self.m + self.n)
@@ -359,9 +359,9 @@ class SemiPyCLA(PyCLABase):
         delta = self._Ploc @ beta - self.mu
 
         lambda_in_goes_out = -np.ones(self.n) * np.inf
-        lower_idx = np.where(np.logical_and(beta[: self.n] > self.tol, self.State == VariableState.IN.value))[0]
+        lower_idx = np.where(np.logical_and(beta[: self.n] > self.tol, self.State == VariableState.IN))[0]
         lambda_in_goes_out[lower_idx] = (self.lb[lower_idx] - alpha[lower_idx]) / beta[lower_idx]
-        higher_idx = np.where(np.logical_and(beta[: self.n] < -self.tol, self.State == VariableState.IN.value))[0]
+        higher_idx = np.where(np.logical_and(beta[: self.n] < -self.tol, self.State == VariableState.IN))[0]
         lambda_in_goes_out[higher_idx] = (self.ub[higher_idx] - alpha[higher_idx]) / beta[higher_idx]
 
         j_in_goes_out = int(np.argmax(lambda_in_goes_out))
@@ -369,9 +369,9 @@ class SemiPyCLA(PyCLABase):
         out_direction = Direction.LOWER if beta[j_in_goes_out] > 0 else Direction.HIGHER
 
         lambda_out_goes_in = -np.ones(self.n) * np.inf
-        delta[np.where(np.logical_and(self.State == VariableState.UP.value, delta > 0))] = 0
-        delta[np.where(np.logical_and(self.State == VariableState.LOW.value, delta < 0))] = 0
-        idx = np.where(np.logical_and(~(self.State == VariableState.IN.value), np.abs(delta) > self.tol))
+        delta[np.where(np.logical_and(self.State == VariableState.UP, delta > 0))] = 0
+        delta[np.where(np.logical_and(self.State == VariableState.LOW, delta < 0))] = 0
+        idx = np.where(np.logical_and(~(self.State == VariableState.IN), np.abs(delta) > self.tol))
         lambda_out_goes_in[idx] = -gamma[idx] / delta[idx]
 
         j_out_goes_in = int(np.argmax(lambda_out_goes_in))

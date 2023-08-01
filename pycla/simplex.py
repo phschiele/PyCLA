@@ -21,8 +21,8 @@ class Simplex:
         self.adj_rate = np.zeros(self.m)
 
         state = np.zeros(self.n + self.m)
-        state[: self.n] = VariableState.LOW.value
-        state[self.n :] = VariableState.IN.value
+        state[: self.n] = VariableState.LOW
+        state[self.n :] = VariableState.IN
         self.State = state
 
         self.out_vars = set(range(self.n))
@@ -143,22 +143,22 @@ class Simplex:
         return sorted(self.out_vars)
 
     def is_up(self, j: Union[int, List[int]]) -> Union[bool, np.array]:
-        return self.State[j] == VariableState.UP.value
+        return self.State[j] == VariableState.UP
 
     def is_low(self, j: Union[int, List[int]]) -> Union[bool, np.array]:
-        return self.State[j] == VariableState.LOW.value
+        return self.State[j] == VariableState.LOW
 
     def go_in(self, j_in: int) -> None:
         self.out_vars.remove(j_in)
         self.in_vars.add(j_in)
-        self.State[j_in] = VariableState.IN.value
+        self.State[j_in] = VariableState.IN
 
     def go_out(self, j_out: int, out_direction: Direction) -> None:
         self.in_vars.remove(j_out)
         if j_out < self.n:
             self.out_vars.add(j_out)
 
-        self.State[j_out] = VariableState.UP.value if out_direction == Direction.HIGHER else VariableState.LOW.value
+        self.State[j_out] = VariableState.UP if out_direction == Direction.HIGHER else VariableState.LOW
 
     def update_ai(self, i_out: int, i_in: int, in_direction: Direction) -> None:
 

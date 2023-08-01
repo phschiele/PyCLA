@@ -1,22 +1,19 @@
-from enum import Enum
-
-
-class Direction(Enum):
+class Direction:
     LOWER = "lower"
     HIGHER = "higher"
 
 
-class VariableState(Enum):
+class VariableState:
     IN = 0
     UP = 1
     LOW = 2
 
 
-class SimplexReturn(Enum):
+class SimplexReturn:
     OPTIMAL = "optimal"
     DEGENERATE = "degenerate"
 
 
-class SimplexPhase(Enum):
+class SimplexPhase:
     ONE = 1
     TWO = 2
