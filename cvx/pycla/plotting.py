@@ -1,7 +1,7 @@
 from typing import List
 
-from matplotlib import pyplot as plt
 from cvx.pycla.helpers import Frontier
+from matplotlib import pyplot as plt
 
 
 def plot_efficient_frontiers(frontiers: List[Frontier]) -> None:

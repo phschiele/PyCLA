@@ -1,6 +1,7 @@
 from typing import Union
 
 import cvxpy as cvx
+
 import numpy as np
 from cvx.pycla.pycla import PyCLA, SemiPyCLA
 
